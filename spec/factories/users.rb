@@ -18,4 +18,8 @@ FactoryBot.define do
   trait :with_avatar do
     avatar { File.open(Rails.root.join("spec", "support", "fixtures", "avatar.jpg")) }
   end
+
+  trait :admin do
+    admin { true }
+  end
 end

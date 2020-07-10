@@ -1,0 +1,28 @@
+.grid-x.align-bottom
+  .cell.medium-6
+    h2 = title("Feedbacks")
+  .cell.medium-6
+    = form_tag admin_feedbacks_path, method: :get do
+      .input-group
+        = text_field_tag "q", params[:q], class: "input-group-field"
+        .input-group-button
+          = submit_tag "Search", class: "button", name: nil
+
+.grid-x
+  .cell
+    table
+      thead
+        tr
+          th width="150" Date
+          th Name
+          th Email
+          th Text
+      tbody
+        - @feedbacks.each do |feedback|
+          tr id=dom_id(feedback)
+            td= l feedback.created_at, format: :short
+            td= feedback.name
+            td= feedback.email
+            td= simple_format feedback.text
+
+    = paginate(@feedbacks)

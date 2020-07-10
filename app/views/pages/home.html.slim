@@ -1,3 +1,4 @@
-.grid-x.margin-top-2
+.grid-x
   .cell
-    p= link_to "Add feedback", new_feedback_path, class: "button primary large"
+    - if policy(Feedback).create?
+      = link_to "Add feedback", new_feedback_path, class: "button primary large"

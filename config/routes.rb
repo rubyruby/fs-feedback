@@ -3,5 +3,9 @@ Rails.application.routes.draw do
 
   resources :feedbacks, only: [:new, :create]
 
+  namespace :admin do
+    resources :feedbacks, only: [:index]
+  end
+
   root to: "pages#home"
 end

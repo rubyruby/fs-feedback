@@ -22,3 +22,5 @@ yarn-debug.log*
 .yarn-integrity
 .ruby-gemset
 /.idea
+.env.*
+!.env.example

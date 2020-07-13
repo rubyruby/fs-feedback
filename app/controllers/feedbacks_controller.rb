@@ -1,14 +1,16 @@
 class FeedbacksController < ApplicationController
 
   def new
+    authorize Feedback, :create?
+
     @feedback = Feedback.new(email: current_user&.email, name: current_user&.full_name)
-    authorize @feedback, :create?
     respond_with(@feedback)
   end
 
   def create
-    @feedback = Feedback.create(feedback_params)
-    authorize @feedback
+    authorize Feedback
+
+    @feedback = SubmitFeedback.call(feedback_params: feedback_params).feedback
     respond_with(@feedback, location: root_path)
   end
 

@@ -4,7 +4,12 @@ RSpec.describe "Feedback as user", type: :feature do
 
   let(:current_user) { create(:user) }
 
-  before(:each) { login_as(current_user) }
+  let!(:admins) { 3.times.map { create(:user, :admin) } }
+
+  before(:each) do
+    clear_emails
+    login_as(current_user)
+  end
 
   it "pre-fills name and email fields in feedback form" do
     visit root_path
@@ -23,6 +28,10 @@ RSpec.describe "Feedback as user", type: :feature do
     click_button "Submit feedback"
 
     expect(page).to have_content("Feedback was successfully send!")
+
+    open_email(admins.first.email)
+    expect(current_email.subject).to eq("New feedback")
+    expect(current_email).to have_content(feedback_attributes[:text])
   end
 
 end

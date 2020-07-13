@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   validates :full_name, presence: true
+
+  scope :admins, -> { where(admin: true) }
 end

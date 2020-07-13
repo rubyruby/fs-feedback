@@ -58,4 +58,7 @@ Rails.application.configure do
 
   # Preview email in the browser instead of sending it.
   config.action_mailer.delivery_method = :letter_opener
+
+  # Set URL options to be able to use url_for helpers
+  config.action_mailer.default_url_options = { host: ENV.fetch("HOST"), port: ENV.fetch("PORT") }
 end
